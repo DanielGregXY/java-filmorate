@@ -35,7 +35,7 @@ public class UserController {
     public User put(@Valid @RequestBody User user) {
         validate(user);
         if (!userList.containsKey(user.getId()))
-            throw new ValidationException("Пользователя не существует, необходима регистрация нового пользователя");
+            throw new ValidationException("Пользователя не существует, зарегистрируйте новый аккаунт");
         userList.remove(user.getId());
         userList.put(user.getId(), user);
         log.info("Информация о пользователе {} обновлена", user.getLogin());
@@ -46,11 +46,10 @@ public class UserController {
         if (user.getLogin().contains(" ")) {
             log.warn("Логин пользователя '{}'", user.getLogin());
             throw new ValidationException("Логин не может быть пустым или содержать пробелы");
-        }
-        if (user.getName() == null || user.getName().isBlank()) user.setName(user.getLogin());
+        } if (user.getName().isBlank() || user.getName() == null ) user.setName(user.getLogin());
         Collection<User> userCollection = userList.values();
         for (User us : userCollection) {
-            if (user.getLogin().equals(us.getLogin()) || user.getEmail().equals(us.getEmail()) ) {
+            if (user.getEmail().equals(us.getEmail()) || user.getLogin().equals(us.getLogin()) ) {
                 log.warn("user e-mail: '{}'\n us email: {}", user, us);
                 throw new ValidationException("Пользователь с таким данными уже существует");
             }

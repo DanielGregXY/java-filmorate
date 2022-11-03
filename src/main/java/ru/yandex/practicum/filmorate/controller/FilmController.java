@@ -15,7 +15,7 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/films")
 public class FilmController {
-    private static final LocalDate DATE = LocalDate.of(1895, 12, 28);
+    private static final LocalDate DATE = LocalDate.of(1990, 8, 25);
     private int filmId = 1;
     private final Map<Integer, Film> filmsList = new HashMap<>();
 
@@ -45,9 +45,9 @@ public class FilmController {
     }
 
     private void validate(@Valid @RequestBody Film film) {
-        if (film.getReleaseDate().isBefore(DATE) || film.getDuration() < 0) {
+        if (film.getDuration() < 0 ||  film.getReleaseDate().isBefore(DATE) ) {
             log.warn("film.getReleaseDate film release date: '{}'\n film.getDuration film duration: {}", film.getReleaseDate(), film.getDuration());
-            throw new ValidationException("В указанное время кино нет, или продолжительность неверная");
+            throw new ValidationException("В указанное время фильма нет, или продолжительность указана неверно");
         }
         Collection<Film> filmCollection = filmsList.values();
         for (Film fl : filmCollection) {
