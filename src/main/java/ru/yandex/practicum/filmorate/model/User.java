@@ -1,9 +1,10 @@
 package ru.yandex.practicum.filmorate.model;
 
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 
+
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import javax.validation.constraints.NotBlank;
 
