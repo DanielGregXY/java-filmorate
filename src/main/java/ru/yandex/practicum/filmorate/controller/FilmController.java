@@ -17,7 +17,7 @@ import java.util.Map;
 public class FilmController {
     private static final LocalDate DATE = LocalDate.of(1990, 8, 25);
     private int filmId = 1;
-    private final Map<Integer, Film> filmsList = new HashMap<>();
+    final Map<Integer, Film> filmsList = new HashMap<>();
 
     @GetMapping
     public Collection<Film> findAllFilms() {
@@ -44,7 +44,7 @@ public class FilmController {
         return film;
     }
 
-    private void validate(@Valid @RequestBody Film film) {
+    void validate(@Valid @RequestBody Film film) {
         if (film.getDuration() < 0 ||  film.getReleaseDate().isBefore(DATE) ) {
             log.warn("film.getReleaseDate film release date: '{}'\n film.getDuration film duration: {}", film.getReleaseDate(), film.getDuration());
             throw new ValidationException("В указанное время фильма нет, или продолжительность указана неверно");
