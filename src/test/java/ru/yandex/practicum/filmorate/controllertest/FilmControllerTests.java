@@ -41,14 +41,14 @@ public class FilmControllerTests {
 
     @Test
     void releaseDateBefore1895() {
-        film = new Film("Фильм", "описание", LocalDate.of(1891, 2, 19), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
 
         assertThrows(ValidationException.class, () -> filmController.validate(film));
     }
 
     @Test
     void duplicateFilmTest() {
-        film = new Film("Фильм", "описание", LocalDate.of(1995, 10, 13), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1995, 12, 29), 60);
         film.setId(1);
         filmController.films.put(film.getId(), film);
         assertThrows(ValidationException.class, () -> filmController.validate(film));
@@ -56,7 +56,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyNameValidationTest() {
-        film = new Film("", "описание", LocalDate.of(1891, 2, 19), 60);
+        film = new Film("", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -64,7 +64,7 @@ public class FilmControllerTests {
 
     @Test
     void blancValidationTest() {
-        film = new Film(" ", "описание", LocalDate.of(1891, 2, 19), 60);
+        film = new Film(" ", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -72,7 +72,7 @@ public class FilmControllerTests {
 
     @Test
     void nullNameValidationTest() {
-        film = new Film(null, "описание", LocalDate.of(1891, 2, 19), 60);
+        film = new Film(null, "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -80,7 +80,7 @@ public class FilmControllerTests {
 
     @Test
     void blancDescriptionTest() {
-        film = new Film("Фильм", " ", LocalDate.of(1995, 10, 13), 60);
+        film = new Film("Фильм", " ", LocalDate.of(1995, 12, 29), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -88,7 +88,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyDescriptionTest() {
-        film = new Film("Film", "", LocalDate.of(2022, 7, 2), 120);
+        film = new Film("Film", "", LocalDate.of(2021, 01, 02), 120);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -96,7 +96,7 @@ public class FilmControllerTests {
 
     @Test
     void nullDescriptionTest() {
-        film = new Film("Фильм", null, LocalDate.of(1995, 10, 13), 60);
+        film = new Film("Фильм", null, LocalDate.of(1995, 12, 29), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -117,7 +117,7 @@ public class FilmControllerTests {
 
     @Test
     void durationNotNullTest() {
-        film = new Film("Фильм", "описание", LocalDate.of(1995, 10, 13), 60);
+        film = new Film("Фильм", "описание", LocalDate.of(1995, 12, 29), 60);
         Set<ConstraintViolation<Film>> violations= validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
