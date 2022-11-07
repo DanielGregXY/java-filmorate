@@ -1,7 +1,8 @@
-package ru.yandex.practicum.filmorate.controller;
+package ru.yandex.practicum.filmorate.controllertest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.yandex.practicum.filmorate.controller.UserController;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
 
@@ -39,11 +40,11 @@ public class UserControllerTests {
 
     @Test
     void userWithoutNameTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(1990, 8, 25));
+        user = new User("test@test.ru", "login", LocalDate.of(2000, 8, 20));
         userController.validate(user);
         assertEquals("login", user.getName());
 
-        user = new User("test@test.ru", "login", LocalDate.of(1990, 8, 25));
+        user = new User("test@test.ru", "login", LocalDate.of(2000, 8, 20));
         user.setName(" ");
         userController.validate(user);
         assertEquals("login", user.getName());
@@ -109,7 +110,7 @@ public class UserControllerTests {
 
     @Test
     void birthdateIncorrectTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(2022, 11, 02));
+        user = new User("test@test.ru", "login", LocalDate.of(2022, 11, 2));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);

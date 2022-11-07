@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserController {
 
     private int userId = 1;
-    final Map<Integer, User> users = new HashMap<>();
+    public final Map<Integer, User> users = new HashMap<>();
 
     @GetMapping
     public Collection<User> findAll() {
@@ -43,7 +43,7 @@ public class UserController {
         return user;
     }
 
-    void validate(@Valid @RequestBody User user) {
+    public void validate(@Valid @RequestBody User user) {
         if (user.getLogin().contains(" ")) {
             log.warn("Логин пользователя '{}'", user.getLogin());
             throw new ValidationException("Логин не может быть пустым или содержать пробелы");
