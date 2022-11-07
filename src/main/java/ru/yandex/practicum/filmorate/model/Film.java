@@ -3,6 +3,7 @@ package ru.yandex.practicum.filmorate.model;
 import lombok.Data;
 
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ public class Film {
 
     @NotNull
     private final LocalDate releaseDate;
+    @Min(value = 1)
     private final long duration;
 
 
