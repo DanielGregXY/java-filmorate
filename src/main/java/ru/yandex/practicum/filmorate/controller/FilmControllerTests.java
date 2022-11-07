@@ -49,7 +49,7 @@ public class FilmControllerTests {
     void duplicateFilmTest() {
         film = new Film("Фильм", "описание", LocalDate.of(1995, 10, 13), 60);
         film.setId(1);
-        filmController.filmsList.put(film.getId(), film);
+        filmController.films.put(film.getId(), film);
         assertThrows(ValidationException.class, () -> filmController.validate(film));
     }
 

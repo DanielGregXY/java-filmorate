@@ -53,7 +53,7 @@ public class UserControllerTests {
     void duplicateUserTest() {
         user = new User("test@test.ru", "login", LocalDate.of(1990, 8, 25));
         user.setId(1);
-        userController.userList.put(user.getId(), user);
+        userController.users.put(user.getId(), user);
         assertThrows(ValidationException.class, () -> userController.validate(user));
     }
 

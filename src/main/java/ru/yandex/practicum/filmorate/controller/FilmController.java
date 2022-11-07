@@ -17,19 +17,19 @@ import java.util.Map;
 public class FilmController {
     private static final LocalDate DATE = LocalDate.of(1990, 8, 25);
     private int filmId = 1;
-    final Map<Integer, Film> filmsList = new HashMap<>();
+    final Map<Integer, Film> films = new HashMap<>();
 
     @GetMapping
     public Collection<Film> findAllFilms() {
 
-        return filmsList.values();
+        return films.values();
     }
 
     @PostMapping
     public Film create(@Valid @RequestBody Film film) {
         validate(film);
         film.setId(filmId++);
-        filmsList.put(film.getId(), film);
+        films.put(film.getId(), film);
         log.info("Фильм {} добавлен в коллекцию", film.getName());
         return film;
     }
@@ -37,9 +37,9 @@ public class FilmController {
     @PutMapping
     public Film put(@Valid @RequestBody Film film) {
         validate(film);
-        if (!filmsList.containsKey(film.getId())) throw new ValidationException("Такого фильма нет");
-        filmsList.remove(film.getId());
-        filmsList.put(film.getId(), film);
+        if (!films.containsKey(film.getId())) throw new ValidationException("Такого фильма нет");
+        films.remove(film.getId());
+        films.put(film.getId(), film);
         log.info("Информация о фильме была {} обновлена", film.getName());
         return film;
     }
@@ -49,7 +49,7 @@ public class FilmController {
             log.warn("film.getReleaseDate film release date: '{}'\n film.getDuration film duration: {}", film.getReleaseDate(), film.getDuration());
             throw new ValidationException("В указанное время фильма нет, или продолжительность указана неверно");
         }
-        Collection<Film> filmCollection = filmsList.values();
+        Collection<Film> filmCollection = films.values();
         for (Film fl : filmCollection) {
             if (film.getName().equals(fl.getName()) && film.getReleaseDate().equals(fl.getReleaseDate())) {
                 log.warn("film film: '{}'\n fl film: {}", film, fl);
