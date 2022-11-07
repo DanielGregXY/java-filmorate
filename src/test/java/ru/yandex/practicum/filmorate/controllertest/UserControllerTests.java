@@ -40,11 +40,11 @@ public class UserControllerTests {
 
     @Test
     void userWithoutNameTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(1990, 05, 06));
+        user = new User("test@test.ru", "login", LocalDate.of(1990, 5, 6));
         userController.validate(user);
         assertEquals("login", user.getName());
 
-        user = new User("test@test.ru", "login", LocalDate.of(1990, 05, 06));
+        user = new User("test@test.ru", "login", LocalDate.of(1990, 5, 6));
         user.setName(" ");
         userController.validate(user);
         assertEquals("login", user.getName());
@@ -52,7 +52,7 @@ public class UserControllerTests {
 
     @Test
     void duplicateUserTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(1990, 05, 06));
+        user = new User("test@test.ru", "login", LocalDate.of(1990, 5, 6));
         user.setId(1);
         userController.users.put(user.getId(), user);
         assertThrows(ValidationException.class, () -> userController.validate(user));
@@ -60,7 +60,7 @@ public class UserControllerTests {
 
     @Test
     void emailBlancTest() {
-        user = new User(null, "login", LocalDate.of(1990, 05, 06));
+        user = new User(null, "login", LocalDate.of(1990, 5, 6));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -69,7 +69,7 @@ public class UserControllerTests {
 
     @Test
     void emailWithoutATTest() {
-        user = new User("null", "login", LocalDate.of(1990, 05, 06));
+        user = new User("null", "login", LocalDate.of(1990, 5, 6));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -78,7 +78,7 @@ public class UserControllerTests {
 
     @Test
     void emailNullTest() {
-        user = new User(null, "login", LocalDate.of(1990, 05, 06));
+        user = new User(null, "login", LocalDate.of(1990, 5, 6));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -86,7 +86,7 @@ public class UserControllerTests {
 
     @Test
     void loginBlancTest() {
-        user = new User("test@test.ru", " ", LocalDate.of(1990, 05, 06));
+        user = new User("test@test.ru", " ", LocalDate.of(1990, 5, 6));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -94,7 +94,7 @@ public class UserControllerTests {
 
     @Test
     void loginNullTest() {
-        user = new User("test@test.ru", null, LocalDate.of(1990, 05, 06));
+        user = new User("test@test.ru", null, LocalDate.of(1990, 5, 6));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -110,7 +110,7 @@ public class UserControllerTests {
 
     @Test
     void birthdateIncorrectTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(2022, 11, 02));
+        user = new User("test@test.ru", "login", LocalDate.of(2022, 11, 2));
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);

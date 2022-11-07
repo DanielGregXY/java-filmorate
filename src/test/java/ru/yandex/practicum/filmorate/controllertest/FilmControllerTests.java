@@ -41,7 +41,7 @@ public class FilmControllerTests {
 
     @Test
     void releaseDateBefore1895() {
-        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
 
         assertThrows(ValidationException.class, () -> filmController.validate(film));
     }
@@ -56,7 +56,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyNameValidationTest() {
-        film = new Film("", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
+        film = new Film("", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -64,7 +64,7 @@ public class FilmControllerTests {
 
     @Test
     void blancValidationTest() {
-        film = new Film(" ", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
+        film = new Film(" ", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -72,7 +72,7 @@ public class FilmControllerTests {
 
     @Test
     void nullNameValidationTest() {
-        film = new Film(null, "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
+        film = new Film(null, "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -88,7 +88,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyDescriptionTest() {
-        film = new Film("Film", "", LocalDate.of(2021, 01, 02), 120);
+        film = new Film("Film", "", LocalDate.of(2021, 1, 2), 120);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
