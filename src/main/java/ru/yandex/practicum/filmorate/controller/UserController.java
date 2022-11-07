@@ -16,18 +16,18 @@ import java.util.Map;
 public class UserController {
 
     private int userId = 1;
-    final Map<Integer, User> userList = new HashMap<>();
+    final Map<Integer, User> users = new HashMap<>();
 
     @GetMapping
     public Collection<User> findAll() {
-        return userList.values();
+        return users.values();
     }
 
     @PostMapping
     public User create(@Valid @RequestBody User user) {
         validate(user);
         user.setId(userId++);
-        userList.put(user.getId(), user);
+        users.put(user.getId(), user);
         log.info("Добавлен пользователь с логином {}", user.getLogin());
         return user;
     }
@@ -35,10 +35,10 @@ public class UserController {
     @PutMapping
     public User put(@Valid @RequestBody User user) {
         validate(user);
-        if (!userList.containsKey(user.getId()))
+        if (!users.containsKey(user.getId()))
             throw new ValidationException("Пользователя не существует, зарегистрируйте новый аккаунт");
-        userList.remove(user.getId());
-        userList.put(user.getId(), user);
+        users.remove(user.getId());
+        users.put(user.getId(), user);
         log.info("Информация о пользователе {} обновлена", user.getLogin());
         return user;
     }
@@ -48,7 +48,7 @@ public class UserController {
             log.warn("Логин пользователя '{}'", user.getLogin());
             throw new ValidationException("Логин не может быть пустым или содержать пробелы");
         } if (user.getName().isBlank() || user.getName() == null ) user.setName(user.getLogin());
-        Collection<User> userCollection = userList.values();
+        Collection<User> userCollection = users.values();
         for (User us : userCollection) {
             if (user.getEmail().equals(us.getEmail()) || user.getLogin().equals(us.getLogin()) ) {
                 log.warn("user e-mail: '{}'\n us email: {}", user, us);
