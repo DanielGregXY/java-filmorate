@@ -27,10 +27,10 @@ public class FilmControllerTests {
     FilmController filmController;
     Film film;
 
-    @BeforeEach
-    void filmControllerInit() {
-        filmController = new FilmController();
-    }
+@BeforeEach
+        void filmControllerInit() {
+            filmController = new FilmController();
+        }
 
     @BeforeEach
     public void setUp() {
@@ -41,7 +41,7 @@ public class FilmControllerTests {
 
     @Test
     void releaseDateBefore1895() {
-        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
 
         assertThrows(ValidationException.class, () -> filmController.validate(film));
     }
@@ -72,7 +72,7 @@ public class FilmControllerTests {
 
     @Test
     void nullNameValidationTest() {
-        film = new Film(null, "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
+        film = new Film(null, "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -88,7 +88,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyDescriptionTest() {
-        film = new Film("Film", "", LocalDate.of(2021, 1, 2), 120);
+        film = new Film("Film", "", LocalDate.of(2021, 01, 02), 120);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -117,7 +117,7 @@ public class FilmControllerTests {
 
     @Test
     void durationNotNullTest() {
-        film = new Film("Фильм", "описание", LocalDate.of(1995, 12, 29), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1995, 12, 29), 0);
         Set<ConstraintViolation<Film>> violations= validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);

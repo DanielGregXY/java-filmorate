@@ -14,22 +14,20 @@ import java.time.LocalDate;
 
 @Data
 public class Film {
-
     private int id;
-    @NotNull
 
     @NotBlank
     private final String name;
 
-    @Size(max = 200, message = "слишком длинное описание, недопустимое значение.")
+    @NotBlank
+    @Size(max = 200, message = "слишком длинное описание, больше 200 символов")
     private final String description;
 
     @NotNull
     private final LocalDate releaseDate;
+
     @Min(value = 1)
     private final long duration;
-
-
 
 
 

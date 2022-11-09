@@ -16,7 +16,7 @@ import java.util.Map;
 public class UserController {
 
     private int userId = 1;
-    public final Map<Integer, User> users = new HashMap<>();
+     public final Map<Integer, User> users = new HashMap<>();
 
     @GetMapping
     public Collection<User> findAll() {
