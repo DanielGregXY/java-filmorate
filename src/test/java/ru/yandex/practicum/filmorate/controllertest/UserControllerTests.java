@@ -111,7 +111,7 @@ public class UserControllerTests  {
     @Test
     void withoutBirthdayValidationTest() {
         user = new User("test@test.ru", "login", null);
-        user.setName("Vladimir");
+        user.setName("Daniil");
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
