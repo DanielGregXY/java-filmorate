@@ -8,8 +8,6 @@ import java.net.http.HttpClient;
 @SpringBootTest
 class FilmorateApplicationTests {
 
-
-
 	@Test
 	void contextLoads() {
 		HttpClient httpClient = HttpClient.newBuilder().build();

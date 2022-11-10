@@ -27,10 +27,10 @@ public class FilmControllerTests {
     FilmController filmController;
     Film film;
 
-@BeforeEach
-        void filmControllerInit() {
-            filmController = new FilmController();
-        }
+    @BeforeEach
+    void filmControllerInit() {
+        filmController = new FilmController();
+    }
 
     @BeforeEach
     public void setUp() {
@@ -56,7 +56,7 @@ public class FilmControllerTests {
 
     @Test
     void emptyNameValidationTest() {
-        film = new Film("", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
+        film = new Film("", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
@@ -64,7 +64,7 @@ public class FilmControllerTests {
 
     @Test
     void blancValidationTest() {
-        film = new Film(" ", "Какое-то описание", LocalDate.of(1894, 1, 2), 60);
+        film = new Film(" ", "Какое-то описание", LocalDate.of(1894, 01, 02), 60);
         Set<ConstraintViolation<Film>> violations = validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);
