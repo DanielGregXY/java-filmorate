@@ -109,6 +109,7 @@ public class UserControllerTests  {
     }
 
     @Test
+
     void withoutBirthdayValidationTest() {
         user = new User("test@test.ru", "login", null);
         user.setName("Daniil");
