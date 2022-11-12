@@ -16,7 +16,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserControllerTests {
+public class UserControllerTests  {
 
     private final ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 
@@ -25,7 +25,7 @@ public class UserControllerTests {
     UserController userController;
 
     User user;
-
+//
     @BeforeEach
     void UserControllerInit() {
         userController = new UserController();
@@ -109,8 +109,10 @@ public class UserControllerTests {
     }
 
     @Test
-    void birthdateIncorrectTest() {
-        user = new User("test@test.ru", "login", LocalDate.of(2022, 11, 02));
+
+    void withoutBirthdayValidationTest() {
+        user = new User("test@test.ru", "login", null);
+        user.setName("Daniil");
         Set<ConstraintViolation<User>> violations = validator.validate(user);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);

@@ -117,7 +117,7 @@ public class FilmControllerTests {
 
     @Test
     void durationNotNullTest() {
-        film = new Film("Фильм", "описание", LocalDate.of(1995, 12, 29), 60);
+        film = new Film("Фильм", "Какое-то описание", LocalDate.of(1995, 12, 29), 0);
         Set<ConstraintViolation<Film>> violations= validator.validate(film);
         assertFalse(violations.isEmpty());
         assertThat(violations.size()).isEqualTo(1);

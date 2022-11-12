@@ -14,7 +14,6 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("/users")
 public class UserController {
-
     private int userId = 1;
     public final Map<Integer, User> users = new HashMap<>();
 
@@ -36,7 +35,7 @@ public class UserController {
     public User put(@Valid @RequestBody User user) {
         validate(user);
         if (!users.containsKey(user.getId()))
-            throw new ValidationException("Пользователя не существует, зарегистрируйте новый аккаунт");
+            throw new ValidationException("Пользователя не существует, необходима регистрация нового пользователя");
         users.remove(user.getId());
         users.put(user.getId(), user);
         log.info("Информация о пользователе {} обновлена", user.getLogin());
@@ -45,14 +44,15 @@ public class UserController {
 
     public void validate(@Valid @RequestBody User user) {
         if (user.getLogin().contains(" ")) {
-            log.warn("Логин пользователя '{}'", user.getLogin());
+            log.warn("Логин юзера '{}'", user.getLogin());
             throw new ValidationException("Логин не может быть пустым или содержать пробелы");
-        } if (user.getName().isBlank() || user.getName() == null ) user.setName(user.getLogin());
+        }
+        if (user.getName() == null || user.getName().isBlank()) user.setName(user.getLogin());
         Collection<User> userCollection = users.values();
         for (User us : userCollection) {
-            if (user.getEmail().equals(us.getEmail()) || user.getLogin().equals(us.getLogin()) ) {
+            if (user.getLogin().equals(us.getLogin()) || user.getEmail().equals(us.getEmail()) ) {
                 log.warn("user e-mail: '{}'\n us email: {}", user, us);
-                throw new ValidationException("Пользователь с таким данными уже существует");
+                throw new ValidationException("Пользователь с таким email или login уже существует");
             }
         }
     }

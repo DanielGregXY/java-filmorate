@@ -20,7 +20,7 @@ public class FilmController {
     public final Map<Integer, Film> films = new HashMap<>();
 
     @GetMapping
-    public Collection<Film> findAllFilms() {
+    public Collection<Film> findAll() {
 
         return films.values();
     }
@@ -40,14 +40,14 @@ public class FilmController {
         if (!films.containsKey(film.getId())) throw new ValidationException("Такого фильма нет");
         films.remove(film.getId());
         films.put(film.getId(), film);
-        log.info("Информация о фильме была {} обновлена", film.getName());
+        log.info("Информация о фильме {} обновлена", film.getName());
         return film;
     }
 
     public void validate(@Valid @RequestBody Film film) {
-        if (film.getDuration() < 0 ||  film.getReleaseDate().isBefore(DATE) ) {
+        if (film.getReleaseDate().isBefore(DATE) || film.getDuration() < 0) {
             log.warn("film.getReleaseDate film release date: '{}'\n film.getDuration film duration: {}", film.getReleaseDate(), film.getDuration());
-            throw new ValidationException("В указанное время фильма нет, или продолжительность указана неверно");
+            throw new ValidationException("В то время кино еще не было или продолжительность неверная");
         }
         Collection<Film> filmCollection = films.values();
         for (Film fl : filmCollection) {
