@@ -31,7 +31,7 @@ public class UserStorageTests {
         userStorage.validate(user);
         assertEquals("login", user.getName());
     }
-
+    //
     @Test
     void duplicateUserTest() {
         user = new User("test@test.ru", "login", LocalDate.of(1990, 5, 6));
