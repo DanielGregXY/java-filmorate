@@ -1,37 +1,43 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Email;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.*;
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
-
-@Data
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder(toBuilder = true)
 public class User {
 
-        private Set<Integer> friends = new HashSet<>();
+        @PositiveOrZero
+        private int id;
 
-                private int id;
-                @NotBlank(message = "Отсутствует email")
-                @Email(message = "Некорректный email")
+        @NotBlank(message = "Отсутствует email")
+        @Email(message = "Некорректный email")
 
-                private String email;
-                @NotNull(message = "Отсутствует логин")
-                @Pattern(regexp = "\\S+", message = "Логин содержит пробелы")
-                private final String login;
+        private String email;
+        @NotNull(message = "Отсутствует логин")
+        @Pattern(regexp = "\\S+", message = "Логин содержит пробелы")
 
-                private String name;
-                @NotNull(message = "Не указана дата рождения")
-                @PastOrPresent(message = "Некорректная дата рождения")
-                private final LocalDate birthday;
+        private String login;
+        private String name;
+        @NotNull(message = "Не указана дата рождения")
 
-                private StatusRelation statusRelation;
+        @PastOrPresent(message = "Некорректная дата рождения")
+        private LocalDate birthday;
+
+        public User(String s, LocalDate of) {
 
         }
+}
